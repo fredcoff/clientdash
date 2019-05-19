@@ -1,23 +1,23 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getLeads, deleteLead } from "../../actions/leads";
+import { getClients, deleteClient } from "../../actions/clients";
 
-export class Leads extends Component {
+export class Clients extends Component {
   static propTypes = {
-    leads: PropTypes.array.isRequired,
-    getLeads: PropTypes.func.isRequired,
-    deleteLead: PropTypes.func.isRequired
+    clients: PropTypes.array.isRequired,
+    getClients: PropTypes.func.isRequired,
+    deleteClient: PropTypes.func.isRequired
   };
 
   componentDidMount() {
-    this.props.getLeads();
+    this.props.getClients();
   }
 
   render() {
     return (
       <Fragment>
-        <h2>Leads</h2>
+        <h2>Clients</h2>
         <table className="table table-striped">
           <thead>
             <tr>
@@ -29,7 +29,7 @@ export class Leads extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.leads.map(lead => (
+            {this.props.clients.map(lead => (
               <tr key={lead.id}>
                 <td>{lead.id}</td>
                 <td>{lead.name}</td>
@@ -37,7 +37,7 @@ export class Leads extends Component {
                 <td>{lead.message}</td>
                 <td>
                   <button
-                    onClick={this.props.deleteLead.bind(this, lead.id)}
+                    onClick={this.props.deleteClient.bind(this, lead.id)}
                     className="btn btn-danger btn-sm"
                   >
                     {" "}
@@ -54,13 +54,13 @@ export class Leads extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.leads);
+  console.log(state.clients);
   return ({
-  leads: state.leads.leads
+  clients: state.clients.clients
 });
 };
 
 export default connect(
   mapStateToProps,
-  { getLeads, deleteLead }
-)(Leads);
+  { getClients, deleteClient }
+)(Clients);
